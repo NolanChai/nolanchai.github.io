@@ -11,20 +11,14 @@ image: '/images/projects.jpg'
 *Me in the wild*
 
 <p>I'm a third year undergraduate at UCSD aiming for a double major in Cognitive Science and 
-Mathematics-Computer Science. I have very broad interests in social robotics, CSE education, 
-data science, and HCI, particularly in tasks involving deep learning with topics ranging in, 
-but not limited to, computer vision, natural language processing, reinforcement learning,
- and robust control and state optimization of autonomous systems. I have formal experience 
- dealing with data science in the form of bioinformatics, computer vision, and javascript/
-web development.</p>
+Mathematics-Computer Science. I like robots, language, how people learn, AI, and everything 
+in between. I'm still lacking in so many experiences, and I always seek to gain and learn as much
+as I can.</p>
 
-<p>I seek to explore the boundaries between humans and ML/DL technologies, to ultimately find 
-ways to build more ethical, interactive, and efficient autonomous systems. Open to any 
-opportunities in the Robotics, Autonomous Systems, Bioinformatics, and Applied Machine 
-Learning / Data Science fields.</p>
+<p>Outside of academia and all the boring stuff, I am an oil painter and digital artist under the 
+pseudonym Kayden, and dabble in strategy and simulation games - such as Rimworld, as well as develop 
+games on my own.</p>
 
-<p>Outside of academia and all the boring stuff, I am an artist under the pseudonym Kayden, 
-and dabble in strategy and simulation games - such as Rimworld, as well as develop games 
-on my own.</p>
+<p>You can reach out to me via email or Discord, respectively, at nochai@ucsd.edu and nolan#2483.</p>
 
 <hr>
