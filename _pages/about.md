@@ -14,9 +14,9 @@ Placeholder text.
 
 <div class="gallery-box">
   <div class="gallery">
-    <img src="/images/900.jpg">
-    <img src="/images/901.jpg">
-    <img src="/images/902.jpg">
+    <img src="{{site.baseurl}}/images/900.jpg">
+    <img src="{{site.baseurl}}/images/901.jpg">
+    <img src="{{site.baseurl}}/images/902.jpg">
   </div>
 </div>
 
