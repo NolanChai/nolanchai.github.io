@@ -10,6 +10,17 @@ Hi, my name is Nolan Chai.
 ![Minimalism]({{site.baseurl}}/images/nolan4.jpg)
 *Me in the wild*
 
-I'm an undergraduate 
+I'm a third year undergraduate at UCSD aiming for a double major in Cognitive Science and 
+Mathematics-Computer Science. I have very broad interests in social robotics, CSE education, 
+data science, and HCI, particularly in tasks involving deep learning with topics ranging in, 
+but not limited to, computer vision, natural language processing, reinforcement learning,
+ and robust control and state optimization of autonomous systems. I have formal experience 
+ dealing with data science in the form of bioinformatics, computer vision, and javascript/
+web development.
+
+I seek to explore the boundaries between humans and ML/DL technologies, to ultimately find 
+ways to build more ethical, interactive, and efficient autonomous systems. Open to any 
+opportunities in the Robotics, Autonomous Systems, Bioinformatics, and Applied Machine 
+Learning / Data Science fields.
 
 <hr>
