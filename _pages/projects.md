@@ -5,4 +5,4 @@ permalink: /projects/
 image: '/images/projects.jpg'
 ---
 
-Here are current and ongoing projects
+Placeholder for some of the various projects I build for hackathons such as UCLA's LaHacks, HackMIT, and Stanford Treehacks. 
