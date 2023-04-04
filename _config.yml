@@ -11,15 +11,14 @@ url: "" # The base hostname & protocol for your site, e.g. http://example.com
 # Author Settings
 author:
   name: Nolan Chai
-  avatar: '/images/15.jpg'
-
+  avatar: '/images/nolan2.jpg'
 
 #-------------------------------
 # Hero Settings
 hero:
   title: Nolan Chai
   description: Hi. I'm a junior studying Cognitive Science, Mathematics-Computer Science, and Linguistics at UCSD.
-  image: '/images/placeholder.jpg'
+  image: '/images/nolan3.jpg'
 
 
 #-------------------------------
