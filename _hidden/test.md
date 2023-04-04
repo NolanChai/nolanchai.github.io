@@ -4,4 +4,5 @@ title: test
 description: Hi
 permalink: /test/
 ---
-Hello world.
+
+<p>Hello world.</p>
