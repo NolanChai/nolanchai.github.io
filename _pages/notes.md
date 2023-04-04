@@ -2,7 +2,7 @@
 layout: page
 title: Notes
 permalink: /notes/
-image: '/images/notebook.jpg'
+image: '/images/notes.jpg'
 ---
 
-Here are current and ongoing projects
+Here are my current notes:
