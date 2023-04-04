@@ -18,7 +18,6 @@ Placeholder text.
     <img src="/images/901.jpg">
     <img src="/images/902.jpg">
   </div>
-  <em>Gallery / <a href="https://unsplash.com/" target="_blank">Unsplash</a></em>
 </div>
 
 Placeholder text.
