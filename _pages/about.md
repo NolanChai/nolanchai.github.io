@@ -2,12 +2,13 @@
 layout: page
 title: About
 permalink: /about/
-image: '/images/nolan.jpg'
+image: '/images/projects.jpg'
 ---
 
 Hi, my name is Nolan Chai.
 
-![Minimalism]({{site.baseurl}}/images/nolan3.jpg)
+![Minimalism]({{site.baseurl}}/images/nolan4.jpg)
+*Me in the wild*
 
 I'm an undergraduate 
 
