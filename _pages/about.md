@@ -21,4 +21,5 @@ and also develop games on my own.</p>
 
 <p>You can reach out to me via email or Discord, respectively, at nochai@ucsd.edu and nolan#2483.</p>
 
+<p>Or, if you'd really like, you can reach out to me through the links to my socials at the bottom of the page.</p>
 <hr>
