@@ -2,7 +2,7 @@
 layout: page
 title: Notes
 permalink: /notes/
-image: '/images/notes.jpg'
+image: '/images/projects.jpg'
 ---
 
 <p>I'm really lazy when it comes to school, so I started taking notes on Overleaf to force myself to pay attention:</p>
