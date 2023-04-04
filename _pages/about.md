@@ -7,7 +7,7 @@ image: '/images/nolan.jpg'
 
 Hi, my name is Nolan Chai.
 
-![Time to think]({{site.baseurl}}/images/nolan.jpg)
+![Time to think]({{site.baseurl}}/images/nolan2.jpg)
 *Minimalism / [Unsplash](https://unsplash.com/)*
 
 Placeholder text.
