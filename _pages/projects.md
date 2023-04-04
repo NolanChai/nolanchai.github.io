@@ -2,7 +2,7 @@
 layout: page
 title: Projects
 permalink: /projects/
-image: '/images/60.jpg'
+image: '/images/projects.jpg'
 ---
 
 Here are current and ongoing projects
