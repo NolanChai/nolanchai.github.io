@@ -23,4 +23,8 @@ ways to build more ethical, interactive, and efficient autonomous systems. Open 
 opportunities in the Robotics, Autonomous Systems, Bioinformatics, and Applied Machine 
 Learning / Data Science fields.</p>
 
+<p>Outside of academia and all the boring stuff, I am an artist under the pseudonym Kayden, 
+and dabble in strategy and simulation games - such as Rimworld, as well as develop games 
+on my own.</p>
+
 <hr>
