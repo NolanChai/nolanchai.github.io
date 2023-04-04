@@ -19,7 +19,7 @@ hero:
   title: Nolan Chai
   description: | 
     Hi. I'm a junior undergraduate studying Cognitive Science and Mathematics-Computer Science at UCSD. 
-    <span style="font-size: smaller;">Prev. Visiting Researcher @MIT, AoU National Institute of Health @UCSD, and Machine Learning R&amp;D @Life Singularity.</span>
+    <br><span style="font-size: smaller;">Prev. Visiting Researcher @MIT, AoU National Institute of Health @UCSD, and Machine Learning R&amp;D @Life Singularity.</span>
   image: '/images/ACM.jpg'
 
 
