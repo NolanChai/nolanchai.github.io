@@ -2,7 +2,7 @@
 layout: page
 title: About
 permalink: /about/
-image: '/images/60.jpg'
+image: '/images/nolan.jpg'
 ---
 
 Hi, my name is Nolan Chai.
@@ -19,10 +19,6 @@ Placeholder text.
     <img src="/images/902.jpg">
   </div>
 </div>
-
-Placeholder text.
-
-<p><iframe src="https://www.youtube.com/embed/QyQ85DEVpbc" frameborder="0" allowfullscreen></iframe></p>
 
 Placeholder text.
 
