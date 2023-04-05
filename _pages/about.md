@@ -11,7 +11,7 @@ image: '/images/projects.jpg'
 *Me in the wild*
 
 <p>I'm a third year undergraduate at UCSD aiming for a double major in Cognitive Science and 
-Mathematics-Computer Science. I like robots, language, how people learn, AI, and everything 
+Mathematics-Computer Science. I like robots, language, how people think and learn, AI, and everything 
 in between. I'm still lacking in so many skills and experience, and so I only hope to keep
 doing more.</p>
 
