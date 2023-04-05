@@ -4,9 +4,10 @@ title: Notes
 permalink: /notes/
 image: '/images/projects.jpg'
 ---
-
+<p>I'm really lazy when it comes to school, so I started taking notes on Overleaf to force myself to pay attention:</p>
 <div>
   <h2>Competitive Programming</h2>
+  <p>I recently got started with competitive programming through CSE 109 this quarter, and I'm trying to bootcamp myself. Here are the problems I'm currently going through:</p>
   <ul>
     <li><a href="{{site.baseurl}}/notes/CSE_109.pdf">Competitive Programming</a></li>
   </ul>
