@@ -1,0 +1,7 @@
+#-------------------------------
+# site settings
+title: Nolan Chai
+logo: # no logo
+description: Nolan Chai's demo/test website
+baseurl: "" # subpath of my site
+url: "" # base hostname & protocol for site
