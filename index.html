@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,76 +8,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #fafaf8;
-      --border: #d0cfc7;
-      --text: #0a0a0a;
-      --text-2: #3a3a3a;
-      --text-3: #777;
-      --text-4: #aaa;
-      --accent: #2563EB;
-      --accent-dim: #DBEAFE;
-      --shadow: 3px 3px 0 #0a0a0a;
-      --shadow-lg: 5px 5px 0 #0a0a0a;
-      --footer-sep: #e8e7e0;
-    }
-    [data-theme="dark"] {
-      --bg: #0d0d0d;
-      --surface: #171717;
-      --border: #2c2c2c;
-      --text: #e8e8e8;
-      --text-2: #b0b0b0;
-      --text-3: #666;
-      --text-4: #444;
-      --accent: #60A5FA;
-      --accent-dim: #1E3A5F;
-      --shadow: 3px 3px 0 #e8e8e8;
-      --shadow-lg: 5px 5px 0 #e8e8e8;
-      --footer-sep: #1c1c1c;
-    }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
-      background: var(--bg);
-      color: var(--text);
+      background: #fff;
+      color: #0a0a0a;
       font-size: 0.78rem;
       line-height: 1.65;
-      padding: 48px 24px 72px;
-      transition: background 0.2s, color 0.2s;
+      padding: 48px 20px 72px;
+      overflow-x: hidden;
     }
 
-    .container { max-width: 460px; margin: 0 auto; }
-
-    /* ── Theme toggle ── */
-    #theme-toggle {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.2rem;
-      font-family: inherit;
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-3);
-      padding: 0.25em 0.6em;
-      cursor: pointer;
-      transition: color 0.15s, border-color 0.15s, background 0.2s;
-      z-index: 100;
+    .container {
+      max-width: 460px;
+      margin: 0 auto;
+      transition: transform 0.35s ease;
     }
-    #theme-toggle:hover { color: var(--text); border-color: var(--text); }
+    body.sidebar-open .container {
+      transform: translateX(-180px);
+    }
 
     /* ── Links ── */
     a {
       color: inherit;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: var(--border);
+      text-decoration-color: #d0cfc7;
       transition: text-decoration-color 0.15s;
     }
-    a:hover { text-decoration-color: var(--text); }
+    a:hover { text-decoration-color: #0a0a0a; }
 
     /* ── Header ── */
     .header { margin-bottom: 3rem; }
@@ -88,43 +48,23 @@
       margin-bottom: 1.25rem;
     }
 
-    /* ── Bio blocks ── */
-    .bio-block { margin-bottom: 0.9rem; }
+    /* ── Bio ── */
+    .bio-block { margin-bottom: 0.85rem; }
     .bio-block p {
-      color: var(--text-2);
+      color: #3a3a3a;
       font-size: 0.76rem;
       line-height: 1.75;
     }
-    .bio-block p.muted { color: var(--text-3); }
-
-    .bio-sublabel {
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-4);
-      margin-bottom: 0.45rem;
-    }
-
-    /* ── Chips ── */
-    .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .chip {
-      font-size: 0.6rem;
-      padding: 0.15em 0.55em;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      transition: background 0.12s;
-    }
-    .chip:hover { background: var(--accent-dim); }
+    .bio-block p.muted { color: #777; }
 
     /* ── Contact ── */
     .contact {
       margin-top: 1.1rem;
       font-size: 0.7rem;
-      color: var(--text-3);
+      color: #777;
     }
-    .contact a { text-decoration-color: var(--border); }
-    .sep { margin: 0 0.4rem; color: var(--text-4); }
+    .contact a { text-decoration-color: #d0cfc7; }
+    .sep { margin: 0 0.4rem; color: #ccc; }
 
     /* ── Section labels ── */
     .section-label {
@@ -132,12 +72,73 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #2563EB;
       margin-bottom: 0.9rem;
       margin-top: 2.75rem;
     }
 
-    /* ── Timeline (Previously only) ── */
+    /* ── Previously trigger ── */
+    .prev-trigger {
+      display: inline-block;
+      margin-top: 1.4rem;
+      font-family: inherit;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2563EB;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    .prev-trigger:hover { opacity: 1; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -380px;
+      width: 360px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 1px solid #d0cfc7;
+      padding: 48px 28px 64px 28px;
+      transition: right 0.35s ease;
+      z-index: 200;
+    }
+    .sidebar.open { right: 0; }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-title {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2563EB;
+    }
+    .sidebar-close {
+      font-family: inherit;
+      font-size: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #bbb;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .sidebar-close:hover { color: #0a0a0a; }
+
+    /* ── Timeline ── */
     .timeline { position: relative; padding-left: 1.4rem; }
     .timeline::before {
       content: '';
@@ -147,8 +148,8 @@
       background: linear-gradient(
         to bottom,
         transparent 0%,
-        var(--border) 6%,
-        var(--border) 94%,
+        #d0cfc7 6%,
+        #d0cfc7 94%,
         transparent 100%
       );
     }
@@ -160,8 +161,8 @@
       top: 0.52rem;
       width: 7px;
       height: 7px;
-      background: var(--accent);
-      border: 1.5px solid var(--accent);
+      background: #2563EB;
+      border: 1.5px solid #2563EB;
     }
 
     /* ── Plain stacked entries ── */
@@ -169,17 +170,17 @@
 
     /* ── Cards ── */
     .card {
-      border: 1px solid var(--border);
-      background: var(--surface);
+      border: 1px solid #d0cfc7;
+      background: #fafaf8;
       padding: 0.65rem 0.75rem;
-      transition: box-shadow 0.12s ease, background 0.2s;
+      transition: box-shadow 0.12s ease;
     }
-    .card:hover { box-shadow: var(--shadow); }
+    .card:hover { box-shadow: 3px 3px 0 #0a0a0a; }
     .card.featured {
-      background: var(--bg);
-      border-left: 3px solid var(--accent);
+      background: #fff;
+      border-left: 3px solid #2563EB;
     }
-    .card.featured:hover { box-shadow: var(--shadow-lg); }
+    .card.featured:hover { box-shadow: 5px 5px 0 #0a0a0a; }
 
     .card-row {
       display: flex;
@@ -188,39 +189,110 @@
       gap: 1rem;
     }
     .card-title { font-size: 0.76rem; font-weight: 600; line-height: 1.4; }
-    .card-date { font-size: 0.65rem; color: var(--text-4); white-space: nowrap; flex-shrink: 0; }
-    .card-date.current { color: var(--accent); }
-    .card-sub { font-size: 0.7rem; color: var(--text-3); margin-top: 0.2rem; }
-    .card-body { font-size: 0.71rem; color: var(--text-2); margin-top: 0.35rem; line-height: 1.65; }
+    .card-date { font-size: 0.65rem; color: #aaa; white-space: nowrap; flex-shrink: 0; }
+    .card-date.current { color: #2563EB; }
+    .card-sub { font-size: 0.7rem; color: #777; margin-top: 0.2rem; }
+    .card-body { font-size: 0.71rem; color: #3a3a3a; margin-top: 0.35rem; line-height: 1.65; }
 
     /* ── Mentees ── */
-    .mentee-note { font-size: 0.71rem; color: var(--text-3); margin-bottom: 0.85rem; line-height: 1.7; }
+    .mentee-note { font-size: 0.71rem; color: #777; margin-bottom: 0.85rem; line-height: 1.7; }
     .mentee-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .mentee-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.5rem 0.75rem;
-      border: 1px solid var(--border);
+      border: 1px solid #d0cfc7;
       transition: box-shadow 0.12s ease;
     }
-    .mentee-item:hover { box-shadow: var(--shadow); }
+    .mentee-item:hover { box-shadow: 3px 3px 0 #0a0a0a; }
     .mentee-name { font-size: 0.74rem; font-weight: 600; }
-    .mentee-role { font-size: 0.65rem; color: var(--text-4); }
+    .mentee-role { font-size: 0.65rem; color: #aaa; }
 
     /* ── Footer ── */
     .footer {
       margin-top: 3.5rem;
       padding-top: 1.25rem;
-      border-top: 1px solid var(--footer-sep);
+      border-top: 1px solid #e8e7e0;
       font-size: 0.65rem;
-      color: var(--text-4);
+      color: #ccc;
     }
   </style>
 </head>
 <body>
 
-  <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+  <!-- Previously sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Previously</span>
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title"><a href="https://www.seismic.com/" target="_blank" rel="noopener">Seismic Inc.</a> · ML Engineer Intern</span>
+            <span class="card-date">Jun–Sept 2024</span>
+          </div>
+          <div class="card-body">Researched and deployed end-to-end rapid prototype projects with SQL-to-Text AI generation for code explainability and SQL optimization through various LLMs on Microsoft Azure and IBM Watson. Built an automated self-RAG SQL generation pipeline with SQLAlchemy, along with fullstack development using React, Snowflake, PostgreSQL/pgvectors, and Postman.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title"><a href="https://www.inspiritai.com/" target="_blank" rel="noopener">Inspirit AI</a> · Lead Curriculum Manager & Developer</span>
+            <span class="card-date">May 2023–Dec 2025</span>
+          </div>
+          <div class="card-body">Led a team of 5 developers building and debugging machine learning applications and projects. Worked with faculty and researchers from HKUST, MIT, and Stanford to build tutorials on differential privacy, object detection, reinforcement learning, LLMs, vision transformers, and more for 20,000+ high school, undergraduate students, and professionals.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title"><a href="https://e4e.ucsd.edu/acoustic-species-identification/" target="_blank" rel="noopener">Engineers 4 Exploration</a> · Undergraduate Researcher</span>
+            <span class="card-date">May 2023–2024</span>
+          </div>
+          <div class="card-sub">E4E Bioacoustics, UCSD</div>
+          <div class="card-body">Using vision transformers to interpolate and build synthetic avian audio data for modified CNNs with attention and ensemble learning to classify bird species from 50,000+ audio samples. Applying information theory quantifiers to estimate soundscape diversity and address domain shift.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title">Life Singularity Inc. · ML Research & Development Intern</span>
+            <span class="card-date">Aug–Dec 2022</span>
+          </div>
+          <div class="card-body">Hypertuned and cleaned data for XGBoost Random Forest classification models using social determinants of health and over 20,000 different biomarkers with data from over 300 million patients. Built a pipeline for basic 3D modeling from Random Forest results using Babylon.js.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title"><a href="https://www.csail.mit.edu/" target="_blank" rel="noopener">MIT CSAIL</a> · External Researcher</span>
+            <span class="card-date">Jun–Dec 2022</span>
+          </div>
+          <div class="card-sub">App Inventor</div>
+          <div class="card-body">Assisting in the implementation of API features into MIT App Inventor &amp; maintaining the GitHub open source repository.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-row">
+            <span class="card-title"><a href="https://dbmi.ucsd.edu/projects/all-of-us-research-program.html" target="_blank" rel="noopener">UCSD NIH All of Us</a> · Researcher</span>
+            <span class="card-date">—</span>
+          </div>
+          <div class="card-body">Working with the National Institute of Health via the All of Us Research Program to assist in training and evaluating logistic regression, random forests, MLP, and kNN models with cross-validation and k-fold hyperparameter optimization using Scikit-Learn to build predictive models of depression.</div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
 
   <div class="container">
 
@@ -229,7 +301,7 @@
       <h1>Nolan Chai</h1>
 
       <div class="bio-block">
-        <p>I'm a developer and researcher. Previously, I studied Cognitive Science, Mathematics-Computer Science, and Linguistics major at UC San Diego. I'm really curious about robots, language, how people think and learn, AI, and everything in between! In particular, I simply enjoy thinking of ways to build things with language that people can interact, have fun with, and benefit from.</p>
+        <p>I'm a developer and researcher. Previously, I studied <strong>Cognitive Science</strong>, <strong>Mathematics-Computer Science</strong>, and <strong>Linguistics</strong> at UC San Diego. I'm really curious about <strong>robots</strong>, <strong>language</strong>, how people think and learn, <strong>AI</strong>, and everything in between! In particular, I simply enjoy thinking of ways to build things with language that people can interact, have fun with, and benefit from.</p>
       </div>
 
       <div class="bio-block">
@@ -237,7 +309,7 @@
       </div>
 
       <div class="bio-block">
-        <p class="muted">Some of my interests lately include procedural generation, grounding language in language models, graph neural networks, computer vision, and modeling cognitive states using biomarkers.</p>
+        <p class="muted">Some of my interests lately include procedural generation, grounding language models, knowledge graphs, information theory, and cognitive modeling.</p>
       </div>
 
       <div class="bio-block">
@@ -289,92 +361,12 @@
 
     </div>
 
-    <!-- Previously -->
-    <div class="section-label">Previously</div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title"><a href="https://www.seismic.com/" target="_blank" rel="noopener">Seismic Inc.</a> · ML Engineer Intern</span>
-            <span class="card-date">Jun 2024–Sept 2024</span>
-          </div>
-          <div class="card-body">Researched and deployed end-to-end rapid prototype projects with SQL-to-Text AI generation for code explainability and SQL optimization through various LLMs on Microsoft Azure and IBM Watson. Built an automated self-RAG SQL generation pipeline with SQLAlchemy, along with fullstack development using React, Snowflake, PostgreSQL/pgvectors, and Postman.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title"><a href="https://www.inspiritai.com/" target="_blank" rel="noopener">Inspirit AI</a> · Lead Curriculum Manager & Developer</span>
-            <span class="card-date">May 2023–Dec 2025</span>
-          </div>
-          <div class="card-body">Led a team of 5 developers building and debugging machine learning applications and projects. Worked with faculty and researchers from HKUST, MIT, and Stanford to build tutorials on differential privacy, object detection, reinforcement learning, LLMs, vision transformers, and more for 20,000+ high school, undergraduate students, and professionals.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title"><a href="https://e4e.ucsd.edu/acoustic-species-identification/" target="_blank" rel="noopener">Engineers 4 Exploration</a> · Undergraduate Researcher</span>
-            <span class="card-date">May 2023–2024</span>
-          </div>
-          <div class="card-sub">E4E Bioacoustics, UCSD</div>
-          <div class="card-body">Using vision transformers to interpolate and build synthetic avian audio data for modified CNNs with attention and ensemble learning to classify bird species from 50,000+ audio samples. Applying information theory quantifiers to estimate soundscape diversity and address domain shift.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title">Life Singularity Inc. · ML Research & Development Intern</span>
-            <span class="card-date">Aug 2022–Dec 2022</span>
-          </div>
-          <div class="card-body">Hypertuned and cleaned data for XGBoost Random Forest classification models using social determinants of health and over 20,000 different biomarkers with data from over 300 million patients. Built a pipeline for basic 3D modeling from Random Forest results using Babylon.js.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title"><a href="https://www.csail.mit.edu/" target="_blank" rel="noopener">MIT CSAIL</a> · External Researcher</span>
-            <span class="card-date">Jun 2022–Dec 2022</span>
-          </div>
-          <div class="card-sub">App Inventor</div>
-          <div class="card-body">Assisting in the implementation of API features into MIT App Inventor &amp; maintaining the GitHub open source repository.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="card">
-          <div class="card-row">
-            <span class="card-title"><a href="https://dbmi.ucsd.edu/projects/all-of-us-research-program.html" target="_blank" rel="noopener">UCSD NIH All of Us</a> · Researcher</span>
-            <span class="card-date">—</span>
-          </div>
-          <div class="card-body">Working with the National Institute of Health via the All of Us Research Program to assist in training and evaluating logistic regression, random forests, MLP, and kNN models with cross-validation and k-fold hyperparameter optimization using Scikit-Learn to build predictive models of depression.</div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Education -->
-    <div class="section-label">Education</div>
-    <div class="entry-list">
-
-      <div class="card">
-        <div class="card-row">
-          <span class="card-title">UC San Diego</span>
-          <span class="card-date">2020–2025</span>
-        </div>
-        <div class="card-body">Mathematics–Computer Science · Cognitive Science · Linguistics</div>
-      </div>
-
-    </div>
+    <button class="prev-trigger" onclick="openSidebar()">Previously →</button>
 
     <!-- People -->
     <div class="section-label">People I've worked with</div>
     <p class="mentee-note">
-      I've spent a lot of time throughout the years working with amazing students &amp; friends, and if you are a recruiter, I hope you take a look at their profiles. Here are a few memorable people I've worked with and mentored in recent times. I'll leave additional notes here whenever I get the time.
+      I've spent a lot of time throughout the years working with amazing students &amp; friends, and I'd love to support them as much as I can. If you are a recruiter, I hope you take a look at their profiles. Here are a few memorable people I've worked with and mentored in recent times. I'll leave additional notes here whenever I get the time.
     </p>
     <ul class="mentee-list">
       <li class="mentee-item">
@@ -396,27 +388,19 @@
     </ul>
 
     <footer class="footer">
-      nolanchai.github.io
+      nolanchai.dev
     </footer>
 
   </div>
 
   <script>
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀' : '☾';
+    function openSidebar() {
+      document.getElementById('sidebar').classList.add('open');
+      document.body.classList.add('sidebar-open');
     }
-
-    (function () {
-      const saved = localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      setTheme(saved);
-    })();
-
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.body.classList.remove('sidebar-open');
     }
   </script>
 
