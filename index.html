@@ -346,6 +346,41 @@
       font-size: 0.74rem; color: #3a3a3a; line-height: 1.85; padding-top: 0.75rem;
     }
     .note-body-content p + p { margin-top: 1.1rem; }
+
+    /* ══════════════════════════════════════
+       MOBILE
+    ══════════════════════════════════════ */
+    @media (max-width: 640px) {
+      body { padding: 32px 16px 56px; }
+
+      /* Sidebar and notes drawer: full-width on mobile */
+      .sidebar {
+        width: 100vw;
+        right: -100vw;
+      }
+      .notes-drawer {
+        width: 100vw;
+        min-width: unset;
+        right: -100vw;
+      }
+      /* No container shift — drawer fully covers the page */
+      body.notes-open .container {
+        transform: none;
+      }
+
+      /* People grid: single column */
+      .people-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      /* Mentee items: stack name + role vertically */
+      .mentee-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.1rem;
+      }
+    }
   </style>
 </head>
 <body>
