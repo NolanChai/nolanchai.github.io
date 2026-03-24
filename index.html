@@ -29,17 +29,19 @@
       z-index: 0;
       opacity: 0.04;
     }
-    .container, .sidebar, .notes-drawer { position: relative; z-index: 1; }
 
+    /* ── Container ── */
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 460px;
       margin: 0 auto;
       transition: transform 0.35s ease;
-      background: rgba(255,255,255,0.88);
-      padding: 0 14px;
     }
-    body.sidebar-open .container  { transform: translateX(-180px); }
-    body.notes-open   .container  { transform: translateX(-120px); }
+    /* When notes opens: center container in the remaining left half */
+    body.notes-open .container {
+      transform: translateX(-25vw);
+    }
 
     /* ── Links ── */
     a {
@@ -64,11 +66,6 @@
       font-weight: 600;
       letter-spacing: -0.01em;
     }
-    .header h1 a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .header h1 a:hover { text-decoration-color: transparent; }
     .nav-link {
       font-family: inherit;
       font-size: 0.65rem;
@@ -132,85 +129,89 @@
     }
     .prev-trigger:hover { opacity: 1; }
 
-    /* ── Sidebar (Previously) ── */
+    /* ── Cards ── */
+    .entry-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .card {
+      border: 1px solid #d0cfc7;
+      background: #fafaf8;
+      padding: 0.65rem 0.75rem;
+      transition: box-shadow 0.12s ease;
+    }
+    .card:hover { box-shadow: 3px 3px 0 #0a0a0a; }
+    .card.featured { background: #fff; border-left: 3px solid #2563EB; }
+    .card.featured:hover { box-shadow: 5px 5px 0 #0a0a0a; }
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .card-title { font-size: 0.76rem; font-weight: 600; line-height: 1.4; }
+    .card-date { font-size: 0.65rem; color: #aaa; white-space: nowrap; flex-shrink: 0; }
+    .card-date.current { color: #2563EB; }
+    .card-sub { font-size: 0.7rem; color: #777; margin-top: 0.2rem; }
+    .card-body { font-size: 0.71rem; color: #3a3a3a; margin-top: 0.35rem; line-height: 1.65; }
+
+    /* ── People ── */
+    .subsection-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 0.6rem;
+    }
+    .mentee-note { font-size: 0.71rem; color: #555; margin-bottom: 0.85rem; line-height: 1.7; }
+    .people-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+    .people-col  { display: flex; flex-direction: column; gap: 0.4rem; }
+    .mentee-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0cfc7;
+      transition: box-shadow 0.12s ease;
+    }
+    .mentee-item:hover { box-shadow: 3px 3px 0 #0a0a0a; }
+    .mentee-name { font-size: 0.74rem; font-weight: 600; }
+    .mentee-role { font-size: 0.65rem; color: #aaa; }
+    .friend-item {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0cfc7;
+      transition: box-shadow 0.12s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .friend-item:hover { box-shadow: 3px 3px 0 #0a0a0a; text-decoration-color: transparent; }
+    .friend-name { font-size: 0.74rem; font-weight: 600; }
+    .friend-role { font-size: 0.65rem; color: #aaa; margin-top: 0.1rem; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #e8e7e0;
+      font-size: 0.65rem;
+      color: #ccc;
+    }
+
+    /* ══════════════════════════════════════
+       PREVIOUSLY SIDEBAR
+    ══════════════════════════════════════ */
     .sidebar {
       position: fixed;
-      top: 0;
-      right: -380px;
+      top: 0; right: -380px;
       width: 360px;
       height: 100vh;
       overflow-y: auto;
       background: #fff;
       border-left: 1px solid #d0cfc7;
-      padding: 48px 28px 64px 28px;
+      padding: 48px 28px 64px;
       transition: right 0.35s ease;
       z-index: 200;
     }
     .sidebar.open { right: 0; }
-
-    /* ── Notes drawer ── */
-    .notes-drawer {
-      position: fixed;
-      top: 0;
-      right: calc(-50vw - 20px);
-      width: 50vw;
-      min-width: 300px;
-      height: 100vh;
-      overflow-y: auto;
-      background: #fff;
-      border-left: 1px solid #d0cfc7;
-      padding: 48px 28px 64px 28px;
-      transition: right 0.35s ease;
-      z-index: 200;
-    }
-    .notes-drawer.open { right: 0; }
-
-    /* Notes drawer inner styles */
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 2rem;
-    }
-    .drawer-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-    .drawer-title .drawer-tagline {
-      font-size: 0.62rem;
-      font-weight: 400;
-      color: #aaa;
-      letter-spacing: 0.01em;
-      margin-left: 0.6rem;
-    }
-    .drawer-close {
-      font-family: inherit;
-      font-size: 0.75rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #bbb;
-      padding: 0;
-      line-height: 1;
-      transition: color 0.15s;
-    }
-    .drawer-close:hover { color: #0a0a0a; }
-    .drawer-section-label {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #2563EB;
-      margin-bottom: 0.35rem;
-    }
-    .drawer-section-sub {
-      font-size: 0.63rem;
-      color: #aaa;
-      font-style: italic;
-      margin-bottom: 1.1rem;
-    }
-
     .sidebar-header {
       display: flex;
       justify-content: space-between;
@@ -236,21 +237,13 @@
       transition: color 0.15s;
     }
     .sidebar-close:hover { color: #0a0a0a; }
-
-    /* ── Timeline ── */
     .timeline { position: relative; padding-left: 1.4rem; }
     .timeline::before {
       content: '';
       position: absolute;
       left: 0; top: 0; bottom: 0;
       width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        #d0cfc7 6%,
-        #d0cfc7 94%,
-        transparent 100%
-      );
+      background: linear-gradient(to bottom, transparent 0%, #d0cfc7 6%, #d0cfc7 94%, transparent 100%);
     }
     .timeline-item { position: relative; margin-bottom: 0.6rem; }
     .timeline-item::before {
@@ -258,69 +251,72 @@
       position: absolute;
       left: calc(-1.4rem - 3px);
       top: 0.52rem;
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       background: #2563EB;
       border: 1.5px solid #2563EB;
     }
 
-    /* ── Plain stacked entries ── */
-    .entry-list { display: flex; flex-direction: column; gap: 0.6rem; }
-
-    /* ── Cards ── */
-    .card {
-      border: 1px solid #d0cfc7;
-      background: #fafaf8;
-      padding: 0.65rem 0.75rem;
-      transition: box-shadow 0.12s ease;
-    }
-    .card:hover { box-shadow: 3px 3px 0 #0a0a0a; }
-    .card.featured {
+    /* ══════════════════════════════════════
+       NOTES DRAWER
+       Width adapts so it never overlaps
+       the center column at any resolution.
+       Shift: center container in remaining
+       left space (-25vw translate).
+    ══════════════════════════════════════ */
+    .notes-drawer {
+      position: fixed;
+      top: 0;
+      /* Width = enough to NOT overlap the 460px column + 40px padding each side */
+      width: min(50vw, calc(100vw - 540px));
+      min-width: 280px;
+      right: calc(-1 * min(50vw, calc(100vw - 540px)) - 20px);
+      height: 100vh;
+      overflow-y: auto;
       background: #fff;
-      border-left: 3px solid #2563EB;
+      border-left: 1px solid #d0cfc7;
+      padding: 48px 28px 64px;
+      transition: right 0.35s ease;
+      z-index: 200;
     }
-    .card.featured:hover { box-shadow: 5px 5px 0 #0a0a0a; }
+    .notes-drawer.open { right: 0; }
 
-    .card-row {
+    .drawer-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 1rem;
+      margin-bottom: 2rem;
     }
-    .card-title { font-size: 0.76rem; font-weight: 600; line-height: 1.4; }
-    .card-date { font-size: 0.65rem; color: #aaa; white-space: nowrap; flex-shrink: 0; }
-    .card-date.current { color: #2563EB; }
-    .card-sub { font-size: 0.7rem; color: #777; margin-top: 0.2rem; }
-    .card-body { font-size: 0.71rem; color: #3a3a3a; margin-top: 0.35rem; line-height: 1.65; }
-
-    /* ── Mentees ── */
-    .subsection-label {
+    .drawer-title { font-size: 0.9rem; font-weight: 600; letter-spacing: -0.01em; }
+    .drawer-title .drawer-tagline {
       font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-weight: 400;
       color: #aaa;
-      margin-bottom: 0.6rem;
+      letter-spacing: 0.01em;
+      margin-left: 0.6rem;
     }
-    .mentee-note { font-size: 0.71rem; color: #777; margin-bottom: 0.85rem; line-height: 1.7; }
-    .mentee-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .mentee-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0.75rem;
-      border: 1px solid #d0cfc7;
-      transition: box-shadow 0.12s ease;
+    .drawer-close {
+      font-family: inherit;
+      font-size: 0.75rem;
+      background: none; border: none;
+      cursor: pointer;
+      color: #bbb; padding: 0; line-height: 1;
+      transition: color 0.15s;
     }
-    .mentee-item:hover { box-shadow: 3px 3px 0 #0a0a0a; }
-    .mentee-name { font-size: 0.74rem; font-weight: 600; }
-    .mentee-role { font-size: 0.65rem; color: #aaa; }
+    .drawer-close:hover { color: #0a0a0a; }
+    .drawer-section-label {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #2563EB; margin-bottom: 0.35rem;
+    }
+    .drawer-section-sub {
+      font-size: 0.63rem; color: #aaa;
+      font-style: italic; margin-bottom: 1.1rem;
+    }
 
-    /* ── Note cards (used in notes drawer) ── */
+    /* Note cards */
     .note-list { display: flex; flex-direction: column; gap: 0.5rem; }
     .note-card {
-      border: 1px solid #d0cfc7;
-      background: #fafaf8;
+      border: 1px solid #d0cfc7; background: #fafaf8;
       transition: box-shadow 0.12s ease, border-left 0.15s ease;
       cursor: pointer;
     }
@@ -331,72 +327,26 @@
       box-shadow: 5px 5px 0 #0a0a0a;
     }
     .note-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      padding: 0.55rem 0.75rem;
-      user-select: none;
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 1rem; padding: 0.55rem 0.75rem; user-select: none;
     }
     .note-title { font-size: 0.74rem; font-weight: 600; }
-    .note-meta { display: flex; align-items: baseline; gap: 0.75rem; flex-shrink: 0; }
-    .note-date { font-size: 0.63rem; color: #aaa; }
+    .note-meta  { display: flex; align-items: baseline; gap: 0.75rem; flex-shrink: 0; }
+    .note-date  { font-size: 0.63rem; color: #aaa; }
     .note-toggle {
-      font-size: 0.6rem;
-      color: #ccc;
+      font-size: 0.6rem; color: #ccc;
       transition: color 0.15s, transform 0.25s ease;
       display: inline-block;
     }
     .note-card.open .note-toggle { color: #2563EB; transform: rotate(180deg); }
-    .note-body {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.3s ease;
-    }
+    .note-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
     .note-card.open .note-body { grid-template-rows: 1fr; }
     .note-body-inner { overflow: hidden; }
-    .note-body-content {
-      padding: 0 0.75rem 0.9rem;
-      border-top: 1px solid #e8e7e0;
-    }
+    .note-body-content { padding: 0 0.75rem 0.9rem; border-top: 1px solid #e8e7e0; }
     .note-body-content p {
-      font-size: 0.74rem;
-      color: #3a3a3a;
-      line-height: 1.85;
-      padding-top: 0.75rem;
+      font-size: 0.74rem; color: #3a3a3a; line-height: 1.85; padding-top: 0.75rem;
     }
     .note-body-content p + p { margin-top: 1.1rem; }
-
-    /* ── People grid (Mentees + Friends side by side) ── */
-    .people-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      align-items: start;
-    }
-    .people-col { display: flex; flex-direction: column; gap: 0.4rem; }
-
-    /* ── Friend cards ── */
-    .friend-item {
-      padding: 0.5rem 0.75rem;
-      border: 1px solid #d0cfc7;
-      transition: box-shadow 0.12s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .friend-item:hover { box-shadow: 3px 3px 0 #0a0a0a; text-decoration-color: transparent; }
-    .friend-name { font-size: 0.74rem; font-weight: 600; }
-    .friend-role { font-size: 0.65rem; color: #aaa; margin-top: 0.1rem; }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 3.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #e8e7e0;
-      font-size: 0.65rem;
-      color: #ccc;
-    }
   </style>
 </head>
 <body>
@@ -422,7 +372,7 @@
       <div class="timeline-item">
         <div class="card">
           <div class="card-row">
-            <span class="card-title"><a href="https://www.inspiritai.com/" target="_blank" rel="noopener">Inspirit AI</a> · Lead Curriculum Manager & Developer</span>
+            <span class="card-title"><a href="https://www.inspiritai.com/" target="_blank" rel="noopener">Inspirit AI</a> · Lead Curriculum Manager &amp; Developer</span>
             <span class="card-date">May 2023–Dec 2025</span>
           </div>
           <div class="card-body">Led a team of 5 developers building and debugging machine learning applications and projects. Worked with faculty and researchers from HKUST, MIT, and Stanford to build tutorials on differential privacy, object detection, reinforcement learning, LLMs, vision transformers, and more for 20,000+ high school, undergraduate students, and professionals.</div>
@@ -443,7 +393,7 @@
       <div class="timeline-item">
         <div class="card">
           <div class="card-row">
-            <span class="card-title">Life Singularity Inc. · ML Research & Development Intern</span>
+            <span class="card-title">Life Singularity Inc. · ML Research &amp; Development Intern</span>
             <span class="card-date">Aug–Dec 2022</span>
           </div>
           <div class="card-body">Hypertuned and cleaned data for XGBoost Random Forest classification models using social determinants of health and over 20,000 different biomarkers with data from over 300 million patients. Built a pipeline for basic 3D modeling from Random Forest results using Babylon.js.</div>
@@ -480,12 +430,9 @@
       <span class="drawer-title">Notes<span class="drawer-tagline">a collection of scrawls</span></span>
       <button class="drawer-close" onclick="closeNotes()">✕</button>
     </div>
-
     <div class="drawer-section-label">Approach,</div>
     <div class="drawer-section-sub">or the velocity which my heart seeks</div>
-
     <div class="note-list">
-
       <div class="note-card" onclick="toggleNote(this)">
         <div class="note-header">
           <span class="note-title">towards ataraxia</span>
@@ -498,13 +445,12 @@
           <div class="note-body-inner">
             <div class="note-body-content">
               <p>I spend a lot of time thinking about bringing good to the world. What does it mean to be good? It's not really much of a rational or objective definition; a debate would be immature here. Often, debates overcomplicate and ruin the heart of what things are meant to be. Rather, to keep things simple, it's a feeling. Being surrounded by a warm rhythm of smiles and contentedness. It's not too slow, nor too fast, but just enough to keep things lively.</p>
-              <p>I'm happy when my friends are happy. It's a bit selfish and selfless of me, as contradictory as that sounds. It's a sort of happiness borne of a moment free from worry — an ataraxia of sorts. Perhaps that's what 'doing good' means: whatever actions that universally reduce the worry from everyone's hearts with the least sacrifice.</p>
+              <p>I'm happy when my friends are happy. It's not in a people pleasing way, but it's more of a feeling of wanting to be there and help those around me; I feel anxious and not so great when they are struggling around me. It's a sort of happiness that I strive for borne of a moment free from worry — an ataraxia of sorts. Perhaps that's what 'doing good' means: whatever actions that will universally reduce the worry from everyone's hearts with the least sacrifice.</p>
               <p>I have a silly little dream of sorts, which is why my usernames are connected to 'atlas' in some sort of way — growing up, I always wanted to create some sort of reliable bastion for my friends and people I hold dear. A whimsical, fun, safe place that has inspired so many things: subset, superset, and the dreams that I'll always work toward.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </aside>
 
@@ -514,25 +460,21 @@
     <header class="header">
       <div class="header-row">
         <h1>Nolan Chai</h1>
-        <button class="nav-link" onclick="openNotes()" id="notes-btn">notes</button>
+        <button class="nav-link" id="notes-btn" onclick="openNotes()">notes</button>
       </div>
 
       <div class="bio-block">
         <p>Hi, I'm Nolan. Previously, I studied <strong>Cognitive Science</strong>, <strong>Mathematics-Computer Science</strong>, and <strong>Linguistics</strong> at UC San Diego. I'm really curious about <strong>robots</strong>, <strong>language</strong>, how people think and learn, <strong>AI</strong>, and everything in between! In particular, I simply enjoy thinking of ways to build things with language that people can interact, have fun with, and benefit from.</p>
       </div>
-
       <div class="bio-block">
         <p class="muted">Previously, I've worked at MIT CSAIL, Inspirit AI, Seismic Inc., the UCSD NIH All of Us Research Program, UCSD Engineers 4 Exploration, Life Singularity Inc., and TreasureHacks. I have extensive experience in MLOps, software development, project management, and automation.</p>
       </div>
-
       <div class="bio-block">
         <p class="muted">Some of my interests lately include procedural generation, grounding language in language models, graph neural networks, computer vision, and modeling cognitive states using biomarkers.</p>
       </div>
-
       <div class="bio-block">
         <p>Outside of work, I enjoy sketching, building games, and animating. My long term aspiration is to do meaningful ML research, working on cool and interesting ideas, and running a game studio with friends c:</p>
       </div>
-
       <div class="bio-block">
         <p class="muted">I've also been working on a project recently to help make CS and AI education more accessible to people!</p>
       </div>
@@ -543,126 +485,112 @@
         <a href="mailto:nochai@ucsd.edu">nochai@ucsd.edu</a>
         <span class="sep">·</span>
         <a href="https://www.linkedin.com/in/nolanchai/" target="_blank" rel="noopener">linkedin</a>
-        <span class="sep">·</span>
-        <button class="nav-link" onclick="openNotes()" style="font-size:0.7rem;color:#555;">notes</button>
       </p>
     </header>
 
-    <!-- Now -->
     <div class="section-label">Now</div>
-    <div class="entry-list">
+      <div class="entry-list">
 
-      <div class="card featured">
-        <div class="card-row">
-          <span class="card-title">Frontier AI Lab · ML Research Engineer</span>
-          <span class="card-date current">2026 →</span>
+        <div class="card featured">
+          <div class="card-row">
+            <span class="card-title">Frontier AI Lab · ML Research Engineer</span>
+            <span class="card-date current">2026 →</span>
+          </div>
+          <div class="card-sub">Bay Area</div>
+          <div class="card-body">I am planning to indefinitely move to the Bay Area sometime during the Summer to work on some more slightly mundane tasks, but will be deeply involved as a Machine Learning Researcher at a frontier lab.</div>
         </div>
-        <div class="card-sub">Bay Area</div>
-        <div class="card-body">I am planning to indefinitely move to the Bay Area sometime during the Summer to work on some more slightly mundane tasks, but will be deeply involved as a Machine Learning Researcher at a frontier lab.</div>
-      </div>
 
-      <div class="card featured">
-        <div class="card-row">
-          <span class="card-title"><a href="https://www.animl.health/" target="_blank" rel="noopener">Ani.ML Health</a> · ML Engineer</span>
-          <span class="card-date current">Sep 2025 →</span>
+        <div class="card featured">
+          <div class="card-row">
+            <span class="card-title"><a href="https://www.animl.health/" target="_blank" rel="noopener">Ani.ML Health</a> · ML Engineer</span>
+            <span class="card-date current">Sep 2025 →</span>
+          </div>
+          <div class="card-body">Working with <a href="https://www.linkedin.com/in/kuanchuenwu/" target="_blank" rel="noopener">Professor Kuan-Chuen Wu</a>, <a href="https://www.linkedin.com/in/christopher-pinard-a96a4b49/" target="_blank" rel="noopener">Dr. Christopher Pinard</a>, and <a href="https://www.linkedin.com/in/dharma-suarez-palacios" target="_blank" rel="noopener">Dharma Suarez Palacios</a> to create new ways that we can verify and use medical data with language models for veterinarians.</div>
         </div>
-        <div class="card-body">Working with <a href="https://www.linkedin.com/in/kuanchuenwu/" target="_blank" rel="noopener">Professor Kuan-Chuen Wu</a>, <a href="https://www.linkedin.com/in/christopher-pinard-a96a4b49/" target="_blank" rel="noopener">Dr. Christopher Pinard</a>, and <a href="https://www.linkedin.com/in/dharma-suarez-palacios" target="_blank" rel="noopener">Dharma Suarez Palacios</a> to create new ways that we can verify and use medical data with language models for veterinarians.</div>
-      </div>
 
-      <div class="card featured">
-        <div class="card-row">
-          <span class="card-title">LeMN Lab, UCSD · Researcher</span>
-          <span class="card-date current">Feb 2025 →</span>
+        <div class="card featured">
+          <div class="card-row">
+            <span class="card-title">LeMN Lab, UCSD · Researcher</span>
+            <span class="card-date current">Feb 2025 →</span>
+          </div>
+          <div class="card-sub">Advised by Prof. <a href="https://alexwarstadt.github.io/" target="_blank" rel="noopener">Alex Warstadt</a> · with <a href="https://www.linkedin.com/in/tianqi-zhang-8767b1255" target="_blank" rel="noopener">TQ Zhang</a></div>
+          <div class="card-body">Finding new ways to quantify and look at language data through the lens of UID and information theory.</div>
         </div>
-        <div class="card-sub">Advised by Prof. <a href="https://alexwarstadt.github.io/" target="_blank" rel="noopener">Alex Warstadt</a> · with <a href="https://www.linkedin.com/in/tianqi-zhang-8767b1255" target="_blank" rel="noopener">TQ Zhang</a></div>
-        <div class="card-body">Finding new ways to quantify and look at language data through the lens of UID and information theory.</div>
+
       </div>
+      <button class="prev-trigger" onclick="openSidebar()">Previously →</button>
 
-    </div>
-
-    <button class="prev-trigger" onclick="openSidebar()">Previously →</button>
-
-    <!-- People -->
     <div class="section-label">People I've worked with</div>
-    <p class="mentee-note">
-      I've spent a lot of time throughout the years working with amazing students &amp; friends, and I'd love to support them as much as I can. If you are a recruiter, I hope you take a look at their profiles. Here are a few memorable people I've worked with and mentored in recent times. I'll leave additional notes here whenever I get the time.
-    </p>
+      <p class="mentee-note">
+        I've spent a lot of time throughout the years working with amazing students &amp; friends, and I'd love to support them as much as I can. If you are a recruiter, I hope you take a look at their profiles. Here are a few memorable people I've worked with and mentored in recent times. I'll leave additional notes here whenever I get the time.
+      </p>
 
-    <div class="people-grid">
-
-      <!-- Mentees column -->
-      <div>
-        <div class="subsection-label">Mentees</div>
-        <div class="people-col">
-          <div class="mentee-item">
-            <a href="https://www.linkedin.com/in/catherine-zhang-b6a86415a/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Catherine Zhang</a>
-            <span class="mentee-role">SWE @ Capital One</span>
+      <div class="people-grid">
+        <div>
+          <div class="subsection-label">Mentees</div>
+          <div class="people-col">
+            <div class="mentee-item">
+              <a href="https://www.linkedin.com/in/catherine-zhang-b6a86415a/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Catherine Zhang</a>
+              <span class="mentee-role">SWE @ Capital One</span>
+            </div>
+            <div class="mentee-item">
+              <a href="https://www.linkedin.com/in/brandonkao4/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Brandon Kao</a>
+              <span class="mentee-role">UCI Law School</span>
+            </div>
+            <div class="mentee-item">
+              <span class="mentee-name">Sophia Shetty</span>
+              <span class="mentee-role">Johns Hopkins · Neuroscience</span>
+            </div>
+            <div class="mentee-item">
+              <span class="mentee-name">Markus Gruendler</span>
+              <span class="mentee-role">UC San Diego · Math–CS</span>
+            </div>
+            <div class="mentee-item">
+              <span class="mentee-name">Zoe Xue</span>
+              <span class="mentee-role"></span>
+            </div>
           </div>
-          <div class="mentee-item">
-            <a href="https://www.linkedin.com/in/brandonkao4/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Brandon Kao</a>
-            <span class="mentee-role">UCI Law School</span>
-          </div>
-          <div class="mentee-item">
-            <span class="mentee-name">Sophia Shetty</span>
-            <span class="mentee-role">Johns Hopkins · Neuroscience</span>
-          </div>
-          <div class="mentee-item">
-            <span class="mentee-name">Markus Gruendler</span>
-            <span class="mentee-role">UC San Diego · Math–CS</span>
-          </div>
-          <div class="mentee-item">
-            <span class="mentee-name">Zoe Xue</span>
-            <span class="mentee-role"></span>
+        </div>
+        <div>
+          <div class="subsection-label">Friends</div>
+          <div class="people-col">
+            <a href="https://sheeptester.github.io/" target="_blank" rel="noopener" class="friend-item">
+              <div class="friend-name">Sean Yen</div>
+              <div class="friend-role">UC San Diego · MS CS</div>
+            </a>
+            <a href="https://npetr.one/" target="_blank" rel="noopener" class="friend-item">
+              <div class="friend-name">Nick Petrone</div>
+              <div class="friend-role">UC San Diego · MS CS, Cybersecurity</div>
+            </a>
+            <a href="https://www.linkedin.com/in/sean-hyatt-perry/" target="_blank" rel="noopener" class="friend-item">
+              <div class="friend-name">Sean Perry</div>
+              <div class="friend-role">UC San Diego · PhD CS</div>
+            </a>
+            <a href="https://sprestrel.ski/" target="_blank" rel="noopener" class="friend-item">
+              <div class="friend-name">Sam Prestrelski</div>
+              <div class="friend-role">ServiceNow · SWE</div>
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Friends column -->
-      <div>
-        <div class="subsection-label">Friends</div>
-        <div class="people-col">
-          <a href="https://sheeptester.github.io/" target="_blank" rel="noopener" class="friend-item">
-            <div class="friend-name">Sean Yen</div>
-            <div class="friend-role">UC San Diego · MS CS</div>
-          </a>
-          <a href="https://npetr.one/" target="_blank" rel="noopener" class="friend-item">
-            <div class="friend-name">Nick Petrone</div>
-            <div class="friend-role">UC San Diego · MS CS, Cybersecurity</div>
-          </a>
-          <a href="https://www.linkedin.com/in/sean-hyatt-perry/" target="_blank" rel="noopener" class="friend-item">
-            <div class="friend-name">Sean Perry</div>
-            <div class="friend-role">UC San Diego · PhD CS</div>
-          </a>
-          <a href="https://sprestrel.ski/" target="_blank" rel="noopener" class="friend-item">
-            <div class="friend-name">Sam Prestrelski</div>
-            <div class="friend-role">ServiceNow · SWE</div>
-          </a>
-        </div>
-      </div>
+    <footer class="footer">nolanchai.dev</footer>
 
-    </div>
-
-    <footer class="footer">
-      nolanchai.dev
-    </footer>
-
-  </div>
+  </div><!-- /container -->
 
   <canvas id="gol-canvas"></canvas>
 
   <script>
-    /* ── Sidebar (Previously) ── */
+    /* ══════════════════════════════
+       SIDEBAR / NOTES
+    ══════════════════════════════ */
     function openSidebar() {
       closeNotes();
       document.getElementById('sidebar').classList.add('open');
-      document.body.classList.add('sidebar-open');
     }
     function closeSidebar() {
       document.getElementById('sidebar').classList.remove('open');
-      document.body.classList.remove('sidebar-open');
     }
-
-    /* ── Notes drawer ── */
     function openNotes() {
       closeSidebar();
       document.getElementById('notes-drawer').classList.add('open');
@@ -674,37 +602,27 @@
       document.body.classList.remove('notes-open');
       document.getElementById('notes-btn').classList.remove('active');
     }
+    function toggleNote(card) { card.classList.toggle('open'); }
 
-    function toggleNote(card) {
-      card.classList.toggle('open');
-    }
-
-    /* ── Game of Life ── */
+    /* ══════════════════════════════
+       GAME OF LIFE
+    ══════════════════════════════ */
     (function () {
       const canvas = document.getElementById('gol-canvas');
       const ctx    = canvas.getContext('2d');
-      const CELL   = 6;
-      const FILL   = 0.16;
-      const TICK   = 160;
-
+      const CELL   = 6, FILL = 0.16, TICK = 160;
       let cols, rows, grid, next;
 
-      function newGrid() {
-        return Array.from({ length: rows }, () => new Uint8Array(cols));
-      }
-
+      function newGrid() { return Array.from({ length: rows }, () => new Uint8Array(cols)); }
       function seed() {
         grid = newGrid();
         for (let r = 0; r < rows; r++)
           for (let c = 0; c < cols; c++)
             grid[r][c] = Math.random() < FILL ? 1 : 0;
       }
-
       function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        cols = Math.ceil(canvas.width  / CELL);
-        rows = Math.ceil(canvas.height / CELL);
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        cols = Math.ceil(canvas.width / CELL); rows = Math.ceil(canvas.height / CELL);
         if (!grid) { seed(); return; }
         const g = newGrid();
         for (let r = 0; r < Math.min(rows, grid.length); r++)
@@ -712,7 +630,6 @@
             g[r][c] = grid[r][c];
         grid = g;
       }
-
       function step() {
         next = newGrid();
         for (let r = 0; r < rows; r++)
@@ -728,16 +645,13 @@
           }
         grid = next;
       }
-
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#0a0a0a';
         for (let r = 0; r < rows; r++)
           for (let c = 0; c < cols; c++)
-            if (grid[r][c])
-              ctx.fillRect(c*CELL+1, r*CELL+1, CELL-1, CELL-1);
+            if (grid[r][c]) ctx.fillRect(c*CELL+1, r*CELL+1, CELL-1, CELL-1);
       }
-
       resize();
       window.addEventListener('resize', resize);
       setInterval(() => { step(); draw(); }, TICK);
