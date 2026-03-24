@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* ── Game of Life canvas ── */
+    /* ── GoL canvas ── */
     #gol-canvas {
       position: fixed;
       top: 0; left: 0;
@@ -29,16 +29,17 @@
       z-index: 0;
       opacity: 0.04;
     }
-    .container, .sidebar { position: relative; z-index: 1; }
+    .container, .sidebar, .notes-drawer { position: relative; z-index: 1; }
 
     .container {
       max-width: 460px;
       margin: 0 auto;
       transition: transform 0.35s ease;
+      background: rgba(255,255,255,0.88);
+      padding: 0 14px;
     }
-    body.sidebar-open .container {
-      transform: translateX(-180px);
-    }
+    body.sidebar-open .container  { transform: translateX(-180px); }
+    body.notes-open   .container  { transform: translateX(-120px); }
 
     /* ── Links ── */
     a {
@@ -52,12 +53,36 @@
 
     /* ── Header ── */
     .header { margin-bottom: 3rem; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.25rem;
+    }
     .header h1 {
       font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      margin-bottom: 1.25rem;
     }
+    .header h1 a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .header h1 a:hover { text-decoration-color: transparent; }
+    .nav-link {
+      font-family: inherit;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: #0a0a0a; }
+    .nav-link.active { color: #2563EB; font-weight: 600; }
 
     /* ── Bio ── */
     .bio-block { margin-bottom: 0.85rem; }
@@ -66,13 +91,13 @@
       font-size: 0.76rem;
       line-height: 1.75;
     }
-    .bio-block p.muted { color: #777; }
+    .bio-block p.muted { color: #555; }
 
     /* ── Contact ── */
     .contact {
       margin-top: 1.1rem;
       font-size: 0.7rem;
-      color: #777;
+      color: #555;
     }
     .contact a { text-decoration-color: #d0cfc7; }
     .sep { margin: 0 0.4rem; color: #ccc; }
@@ -107,7 +132,7 @@
     }
     .prev-trigger:hover { opacity: 1; }
 
-    /* ── Sidebar ── */
+    /* ── Sidebar (Previously) ── */
     .sidebar {
       position: fixed;
       top: 0;
@@ -122,6 +147,69 @@
       z-index: 200;
     }
     .sidebar.open { right: 0; }
+
+    /* ── Notes drawer ── */
+    .notes-drawer {
+      position: fixed;
+      top: 0;
+      right: calc(-50vw - 20px);
+      width: 50vw;
+      min-width: 300px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 1px solid #d0cfc7;
+      padding: 48px 28px 64px 28px;
+      transition: right 0.35s ease;
+      z-index: 200;
+    }
+    .notes-drawer.open { right: 0; }
+
+    /* Notes drawer inner styles */
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2rem;
+    }
+    .drawer-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .drawer-title .drawer-tagline {
+      font-size: 0.62rem;
+      font-weight: 400;
+      color: #aaa;
+      letter-spacing: 0.01em;
+      margin-left: 0.6rem;
+    }
+    .drawer-close {
+      font-family: inherit;
+      font-size: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #bbb;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .drawer-close:hover { color: #0a0a0a; }
+    .drawer-section-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2563EB;
+      margin-bottom: 0.35rem;
+    }
+    .drawer-section-sub {
+      font-size: 0.63rem;
+      color: #aaa;
+      font-style: italic;
+      margin-bottom: 1.1rem;
+    }
 
     .sidebar-header {
       display: flex;
@@ -228,6 +316,79 @@
     .mentee-name { font-size: 0.74rem; font-weight: 600; }
     .mentee-role { font-size: 0.65rem; color: #aaa; }
 
+    /* ── Note cards (used in notes drawer) ── */
+    .note-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .note-card {
+      border: 1px solid #d0cfc7;
+      background: #fafaf8;
+      transition: box-shadow 0.12s ease, border-left 0.15s ease;
+      cursor: pointer;
+    }
+    .note-card:hover { box-shadow: 3px 3px 0 #0a0a0a; }
+    .note-card.open {
+      background: #fff;
+      border-left: 3px solid #2563EB;
+      box-shadow: 5px 5px 0 #0a0a0a;
+    }
+    .note-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.55rem 0.75rem;
+      user-select: none;
+    }
+    .note-title { font-size: 0.74rem; font-weight: 600; }
+    .note-meta { display: flex; align-items: baseline; gap: 0.75rem; flex-shrink: 0; }
+    .note-date { font-size: 0.63rem; color: #aaa; }
+    .note-toggle {
+      font-size: 0.6rem;
+      color: #ccc;
+      transition: color 0.15s, transform 0.25s ease;
+      display: inline-block;
+    }
+    .note-card.open .note-toggle { color: #2563EB; transform: rotate(180deg); }
+    .note-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .note-card.open .note-body { grid-template-rows: 1fr; }
+    .note-body-inner { overflow: hidden; }
+    .note-body-content {
+      padding: 0 0.75rem 0.9rem;
+      border-top: 1px solid #e8e7e0;
+    }
+    .note-body-content p {
+      font-size: 0.74rem;
+      color: #3a3a3a;
+      line-height: 1.85;
+      padding-top: 0.75rem;
+    }
+    .note-body-content p + p { margin-top: 1.1rem; }
+
+    /* ── People grid (Mentees + Friends side by side) ── */
+    .people-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .people-col { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    /* ── Friend cards ── */
+    .friend-item {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0cfc7;
+      transition: box-shadow 0.12s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .friend-item:hover { box-shadow: 3px 3px 0 #0a0a0a; text-decoration-color: transparent; }
+    .friend-name { font-size: 0.74rem; font-weight: 600; }
+    .friend-role { font-size: 0.65rem; color: #aaa; margin-top: 0.1rem; }
+
     /* ── Footer ── */
     .footer {
       margin-top: 3.5rem;
@@ -313,14 +474,51 @@
     </div>
   </aside>
 
+  <!-- Notes drawer -->
+  <aside class="notes-drawer" id="notes-drawer">
+    <div class="drawer-header">
+      <span class="drawer-title">Notes<span class="drawer-tagline">a collection of scrawls</span></span>
+      <button class="drawer-close" onclick="closeNotes()">✕</button>
+    </div>
+
+    <div class="drawer-section-label">Approach,</div>
+    <div class="drawer-section-sub">or the velocity which my heart seeks</div>
+
+    <div class="note-list">
+
+      <div class="note-card" onclick="toggleNote(this)">
+        <div class="note-header">
+          <span class="note-title">towards ataraxia</span>
+          <span class="note-meta">
+            <span class="note-date">Mar 2026</span>
+            <span class="note-toggle">▼</span>
+          </span>
+        </div>
+        <div class="note-body">
+          <div class="note-body-inner">
+            <div class="note-body-content">
+              <p>I spend a lot of time thinking about bringing good to the world. What does it mean to be good? It's not really much of a rational or objective definition; a debate would be immature here. Often, debates overcomplicate and ruin the heart of what things are meant to be. Rather, to keep things simple, it's a feeling. Being surrounded by a warm rhythm of smiles and contentedness. It's not too slow, nor too fast, but just enough to keep things lively.</p>
+              <p>I'm happy when my friends are happy. It's a bit selfish and selfless of me, as contradictory as that sounds. It's a sort of happiness borne of a moment free from worry — an ataraxia of sorts. Perhaps that's what 'doing good' means: whatever actions that universally reduce the worry from everyone's hearts with the least sacrifice.</p>
+              <p>I have a silly little dream of sorts, which is why my usernames are connected to 'atlas' in some sort of way — growing up, I always wanted to create some sort of reliable bastion for my friends and people I hold dear. A whimsical, fun, safe place that has inspired so many things: subset, superset, and the dreams that I'll always work toward.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
   <div class="container">
 
     <!-- Header -->
     <header class="header">
-      <h1>Nolan Chai</h1>
+      <div class="header-row">
+        <h1>Nolan Chai</h1>
+        <button class="nav-link" onclick="openNotes()" id="notes-btn">notes</button>
+      </div>
 
       <div class="bio-block">
-        <p>I'm a developer and researcher. Previously, I studied <strong>Cognitive Science</strong>, <strong>Mathematics-Computer Science</strong>, and <strong>Linguistics</strong> at UC San Diego. I'm really curious about <strong>robots</strong>, <strong>language</strong>, how people think and learn, <strong>AI</strong>, and everything in between! In particular, I simply enjoy thinking of ways to build things with language that people can interact, have fun with, and benefit from.</p>
+        <p>Hi, I'm Nolan. Previously, I studied <strong>Cognitive Science</strong>, <strong>Mathematics-Computer Science</strong>, and <strong>Linguistics</strong> at UC San Diego. I'm really curious about <strong>robots</strong>, <strong>language</strong>, how people think and learn, <strong>AI</strong>, and everything in between! In particular, I simply enjoy thinking of ways to build things with language that people can interact, have fun with, and benefit from.</p>
       </div>
 
       <div class="bio-block">
@@ -328,15 +526,15 @@
       </div>
 
       <div class="bio-block">
-        <p class="muted">Some of my interests lately include procedural generation, grounding language models, knowledge graphs, information theory, and cognitive modeling.</p>
+        <p class="muted">Some of my interests lately include procedural generation, grounding language in language models, graph neural networks, computer vision, and modeling cognitive states using biomarkers.</p>
       </div>
 
       <div class="bio-block">
-        <p>Outside of school, I enjoy sketching, building games, and animating. My long term aspiration is to do meaningful ML research, working on cool and interesting ideas, and running a game studio with friends c:</p>
+        <p>Outside of work, I enjoy sketching, building games, and animating. My long term aspiration is to do meaningful ML research, working on cool and interesting ideas, and running a game studio with friends c:</p>
       </div>
 
       <div class="bio-block">
-        <p>Please feel free to reach out to me via the following for whatever reason!</p>
+        <p class="muted">I've also been working on a project recently to help make CS and AI education more accessible to people!</p>
       </div>
 
       <p class="contact">
@@ -345,6 +543,8 @@
         <a href="mailto:nochai@ucsd.edu">nochai@ucsd.edu</a>
         <span class="sep">·</span>
         <a href="https://www.linkedin.com/in/nolanchai/" target="_blank" rel="noopener">linkedin</a>
+        <span class="sep">·</span>
+        <button class="nav-link" onclick="openNotes()" style="font-size:0.7rem;color:#555;">notes</button>
       </p>
     </header>
 
@@ -355,7 +555,7 @@
       <div class="card featured">
         <div class="card-row">
           <span class="card-title">Frontier AI Lab · ML Research Engineer</span>
-          <span class="card-date current">2025 →</span>
+          <span class="card-date current">2026 →</span>
         </div>
         <div class="card-sub">Bay Area</div>
         <div class="card-body">I am planning to indefinitely move to the Bay Area sometime during the Summer to work on some more slightly mundane tasks, but will be deeply involved as a Machine Learning Researcher at a frontier lab.</div>
@@ -387,25 +587,60 @@
     <p class="mentee-note">
       I've spent a lot of time throughout the years working with amazing students &amp; friends, and I'd love to support them as much as I can. If you are a recruiter, I hope you take a look at their profiles. Here are a few memorable people I've worked with and mentored in recent times. I'll leave additional notes here whenever I get the time.
     </p>
-    <div class="subsection-label">Mentees</div>
-    <ul class="mentee-list">
-      <li class="mentee-item">
-        <a href="https://www.linkedin.com/in/catherine-zhang-b6a86415a/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Catherine Zhang</a>
-        <span class="mentee-role">SWE @ Capital One</span>
-      </li>
-      <li class="mentee-item">
-        <a href="https://www.linkedin.com/in/brandonkao4/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Brandon Kao</a>
-        <span class="mentee-role">UCI Law School</span>
-      </li>
-      <li class="mentee-item">
-        <span class="mentee-name">Sophia Shetty</span>
-        <span class="mentee-role">Johns Hopkins · Neuroscience</span>
-      </li>
-      <li class="mentee-item">
-        <span class="mentee-name">Markus Gruendler</span>
-        <span class="mentee-role">UC San Diego · Math–CS</span>
-      </li>
-    </ul>
+
+    <div class="people-grid">
+
+      <!-- Mentees column -->
+      <div>
+        <div class="subsection-label">Mentees</div>
+        <div class="people-col">
+          <div class="mentee-item">
+            <a href="https://www.linkedin.com/in/catherine-zhang-b6a86415a/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Catherine Zhang</a>
+            <span class="mentee-role">SWE @ Capital One</span>
+          </div>
+          <div class="mentee-item">
+            <a href="https://www.linkedin.com/in/brandonkao4/" target="_blank" rel="noopener" class="mentee-name" style="text-decoration:none;">Brandon Kao</a>
+            <span class="mentee-role">UCI Law School</span>
+          </div>
+          <div class="mentee-item">
+            <span class="mentee-name">Sophia Shetty</span>
+            <span class="mentee-role">Johns Hopkins · Neuroscience</span>
+          </div>
+          <div class="mentee-item">
+            <span class="mentee-name">Markus Gruendler</span>
+            <span class="mentee-role">UC San Diego · Math–CS</span>
+          </div>
+          <div class="mentee-item">
+            <span class="mentee-name">Zoe Xue</span>
+            <span class="mentee-role"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Friends column -->
+      <div>
+        <div class="subsection-label">Friends</div>
+        <div class="people-col">
+          <a href="https://sheeptester.github.io/" target="_blank" rel="noopener" class="friend-item">
+            <div class="friend-name">Sean Yen</div>
+            <div class="friend-role">UC San Diego · MS CS</div>
+          </a>
+          <a href="https://npetr.one/" target="_blank" rel="noopener" class="friend-item">
+            <div class="friend-name">Nick Petrone</div>
+            <div class="friend-role">UC San Diego · MS CS, Cybersecurity</div>
+          </a>
+          <a href="https://www.linkedin.com/in/sean-hyatt-perry/" target="_blank" rel="noopener" class="friend-item">
+            <div class="friend-name">Sean Perry</div>
+            <div class="friend-role">UC San Diego · PhD CS</div>
+          </a>
+          <a href="https://sprestrel.ski/" target="_blank" rel="noopener" class="friend-item">
+            <div class="friend-name">Sam Prestrelski</div>
+            <div class="friend-role">ServiceNow · SWE</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
 
     <footer class="footer">
       nolanchai.dev
@@ -416,8 +651,9 @@
   <canvas id="gol-canvas"></canvas>
 
   <script>
-    /* ── Sidebar ── */
+    /* ── Sidebar (Previously) ── */
     function openSidebar() {
+      closeNotes();
       document.getElementById('sidebar').classList.add('open');
       document.body.classList.add('sidebar-open');
     }
@@ -426,32 +662,32 @@
       document.body.classList.remove('sidebar-open');
     }
 
+    /* ── Notes drawer ── */
+    function openNotes() {
+      closeSidebar();
+      document.getElementById('notes-drawer').classList.add('open');
+      document.body.classList.add('notes-open');
+      document.getElementById('notes-btn').classList.add('active');
+    }
+    function closeNotes() {
+      document.getElementById('notes-drawer').classList.remove('open');
+      document.body.classList.remove('notes-open');
+      document.getElementById('notes-btn').classList.remove('active');
+    }
+
+    function toggleNote(card) {
+      card.classList.toggle('open');
+    }
+
     /* ── Game of Life ── */
     (function () {
       const canvas = document.getElementById('gol-canvas');
       const ctx    = canvas.getContext('2d');
-      const CELL   = 6;        // px per cell
-      const FILL   = 0.16;     // initial density
-      const TICK   = 160;      // ms between generations
+      const CELL   = 6;
+      const FILL   = 0.16;
+      const TICK   = 160;
 
       let cols, rows, grid, next;
-
-      function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        cols = Math.ceil(canvas.width  / CELL);
-        rows = Math.ceil(canvas.height / CELL);
-        // seed a fresh grid on first call, preserve on resize
-        if (!grid) seed();
-        else {
-          // trim / expand to new dimensions
-          const g = newGrid();
-          for (let r = 0; r < Math.min(rows, grid.length); r++)
-            for (let c = 0; c < Math.min(cols, (grid[0]||[]).length); c++)
-              g[r][c] = grid[r][c];
-          grid = g;
-        }
-      }
 
       function newGrid() {
         return Array.from({ length: rows }, () => new Uint8Array(cols));
@@ -464,22 +700,32 @@
             grid[r][c] = Math.random() < FILL ? 1 : 0;
       }
 
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        cols = Math.ceil(canvas.width  / CELL);
+        rows = Math.ceil(canvas.height / CELL);
+        if (!grid) { seed(); return; }
+        const g = newGrid();
+        for (let r = 0; r < Math.min(rows, grid.length); r++)
+          for (let c = 0; c < Math.min(cols, (grid[0]||[]).length); c++)
+            g[r][c] = grid[r][c];
+        grid = g;
+      }
+
       function step() {
         next = newGrid();
-        for (let r = 0; r < rows; r++) {
+        for (let r = 0; r < rows; r++)
           for (let c = 0; c < cols; c++) {
             let n = 0;
             for (let dr = -1; dr <= 1; dr++)
               for (let dc = -1; dc <= 1; dc++) {
-                if (dr === 0 && dc === 0) continue;
-                const nr = (r + dr + rows) % rows;
-                const nc = (c + dc + cols) % cols;
-                n += grid[nr][nc];
+                if (!dr && !dc) continue;
+                n += grid[(r+dr+rows)%rows][(c+dc+cols)%cols];
               }
-            const alive = grid[r][c];
-            next[r][c] = (alive && (n === 2 || n === 3)) || (!alive && n === 3) ? 1 : 0;
+            const a = grid[r][c];
+            next[r][c] = (a && (n===2||n===3)) || (!a && n===3) ? 1 : 0;
           }
-        }
         grid = next;
       }
 
@@ -489,7 +735,7 @@
         for (let r = 0; r < rows; r++)
           for (let c = 0; c < cols; c++)
             if (grid[r][c])
-              ctx.fillRect(c * CELL + 1, r * CELL + 1, CELL - 1, CELL - 1);
+              ctx.fillRect(c*CELL+1, r*CELL+1, CELL-1, CELL-1);
       }
 
       resize();
