@@ -36,7 +36,7 @@
     }
 
     .container {
-      max-width: 460px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
@@ -107,11 +107,22 @@
     /* ── Article body ── */
     .article-body {
       color: #3a3a3a;
-      font-size: 0.76rem;
+      font-size: 0.85rem;
       line-height: 1.85;
     }
-    .article-body p + p {
+    .article-body > * + * {
       margin-top: 1.25rem;
+    }
+
+    .article-body blockquote {
+      border-left: 2px solid #d0cfc7;
+      padding-left: 1rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-size: 0.65rem;
+      color: #2563EB;
     }
 
     /* ── Footer ── */
@@ -126,13 +137,14 @@
 </head>
 <body>
 
-  <div class="container">
+  <main class="container">
 
     <div class="header-row">
       <a href="index.html" class="site-name">Nolan Chai</a>
       <a href="notes.html" class="nav-link active">notes</a>
     </div>
 
+    <article>
     <header class="article-header">
       <div class="article-section">Approach,</div>
       <div class="article-section-sub">or the velocity which my heart seeks</div>
@@ -142,15 +154,17 @@
 
     <div class="article-body">
       <p>I spend a lot of time thinking about bringing good to the world. What does it mean to be good? It's not really much of a rational or objective definition; a debate would be immature here. Often, debates overcomplicate and ruin the heart of what things are meant to be. Rather, to keep things simple, it's a feeling. Being surrounded by a warm rhythm of smiles and contentedness. It's not too slow, nor too fast, but just enough to keep things lively.</p>
-
       <p>I'm happy when my friends are happy. It's a bit selfish and selfless of me, as contradictory as that sounds. It's a sort of happiness borne of a moment free from worry — an ataraxia of sorts. Perhaps that's what good means: whatever universally reduces the worry from everyone's hearts with the least sacrifice.</p>
-
-      <p>I have a silly little dream of sorts, which is why my usernames are connected to 'atlas' in some sort of way — growing up, I always wanted to create some sort of reliable bastion for my friends and people I hold dear. A whimsical, fun, safe place that inspired so many things: subset, superset, and the dream I'll always work towards.</p>
+      <p>I have a silly little dream behind why a lot of my usernames are connected to 'atlas' in some sort of way — growing up, I always wanted to create some sort of reliable bastion for my friends and people I hold dear. A whimsical, fun, safe place that inspired so many things: subset, superset, and the dream I'll always work towards.</p>
     </div>
+
+    </article>
+
+    <a class="back-link" href="notes.html">← All notes</a>
 
     <footer class="footer">nolanchai.dev</footer>
 
-  </div>
+  </main>
 
   <canvas id="gol-canvas"></canvas>
 
